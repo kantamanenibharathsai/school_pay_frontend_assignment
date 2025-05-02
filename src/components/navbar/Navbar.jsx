@@ -45,7 +45,7 @@ const navbarStyles = {
     justifyContent: "center",
     mt: 1,
     height: "50px",
-    mr: -2
+    mr: -2,
   },
   colorModeToggle: {
     display: "flex",
@@ -125,7 +125,7 @@ const navbarStyles = {
     position: "absolute",
     top: 77,
     left: 0,
-    justifyContent: {sm: 'center'},
+    justifyContent: { sm: "center" },
     width: "100%",
     backgroundColor: (theme) => theme.palette.background.paper,
     boxShadow: 1,
@@ -134,8 +134,7 @@ const navbarStyles = {
     opacity: 0,
     transform: "translateY(-10px)",
     overflow: "hidden",
-    transition:
-      "max-height 1.0s ease, opacity 0.7s ease, transform 1.0s ease",
+    transition: "max-height 1.0s ease, opacity 0.7s ease, transform 1.0s ease",
     willChange: "max-height, opacity, transform",
     "@media (min-width: 900px)": {
       display: "none",
@@ -198,7 +197,9 @@ const Navbar = ({ children }) => {
               sx={navbarStyles.mobileMenuButton}
             >
               <MenuIcon />
-              <Typography sx={{...navbarStyles.colorModeText, mt: 0}}>Menu</Typography>
+              <Typography sx={{ ...navbarStyles.colorModeText, mt: 0 }}>
+                Menu
+              </Typography>
             </Button>
             <Box sx={navbarStyles.colorModeToggle}>
               <Button onClick={toggleColorMode} color="inherit">

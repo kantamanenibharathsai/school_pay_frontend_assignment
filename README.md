@@ -244,11 +244,8 @@ The frontend is deployed at: [https://school-payments-dashboard.example.com](htt
 
 ## 🧪 Future Enhancements
 
-- Real-time transaction updates using WebSockets
-- Enhanced data visualizations and charts
-- Export functionality for transaction data
-- User authentication and role-based access control
-- Dark/light mode toggle
+- Real-time transaction updates using WebSockets - not added on the frontend side
+- Dark/light mode toggle - added
 
 ## 📝 License
 
@@ -256,4 +253,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## 👥 Contributors
 
-- Your Name - [GitHub Profile](https://github.com/yourusername)
+- Kantamaneni Bharath Sai - [GitHub Profile](https://github.com/kantamanenibharathsai?tab=repositories)

@@ -66,8 +66,6 @@ const DashboardPage = () => {
   const [fieldErrors, setFieldErrors] = useState({});
   const [page, setPage] = useState(1);
   const [rowsPerPage] = useState(10);
-
-  // Initial state: all filters empty for "all transactions"
   const [statusFilter, setStatusFilter] = useState("");
   const [dateRange, setDateRange] = useState([null, null]);
   const [searchTerm, setSearchTerm] = useState("");
