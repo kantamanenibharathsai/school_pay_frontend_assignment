@@ -11,59 +11,34 @@ const commonStyles = {
 
   textfieldStyle: {
     width: "100%",
-    height: "50px",
     borderRadius: "3px",
     "& .MuiInputLabel-root": {
-      fontSize: { xs: "12px", sm: "15px" },
-      pt: { xs: 0.56, sm: 0.28 },
-      height: "30px",
-      m: 0,
-      fontWeight: 200,
+      fontSize: { xs: "13px", sm: "15px" },
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      color: "#5A5A5A",
+      mt: "-10px",
+      height: "100%",
       "&.Mui-focused": {
         fontSize: "14px",
       },
     },
     "& .MuiInputBase-input": {
-      height: "26px",
+      height: "38px",
       borderRadius: "3px",
-      color: "#A9A9A9",
+      color: "#5A5A5A",
       fontFamily: "Poppins",
-      fontWeight: 500,
       fontSize: "17px",
     },
     "& .MuiOutlinedInput-root": {
-      p: 0,
       "& fieldset": {
-        borderRadius: "3px",
-        p: 0,
-        borderColor: "#757575",
-        borderWidth: "2px",
+        fontSize: "0.9rem",
         legend: {
-          padding: "0px",
-          margin: 0,
-          fontSize: "0.8rem",
-          paddingRight: "0px !important",
-          border: "none !important",
+          fontSize: "0.66rem",
         },
       },
-      "&:hover fieldset": {
-        borderColor: "#000",
-      },
-      "&.Mui-focused fieldset": {
-        borderColor: "#000",
-        borderWidth: 2,
-        p: 0,
-        m: 0,
-        legend: {
-          border: "2px solid red !important",
-          fontSize: "0.7rem",
-          pl: "2px !important",
-        },
-      },
-    },
-    "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
-      WebkitAppearance: "none",
-      margin: 0,
     },
   },
 
@@ -89,17 +64,18 @@ const commonStyles = {
       width: { xs: "100%" },
       borderRadius: "3px",
       height: "39px !important",
-      color: "#A9A9A9",
+      color: "#5A5A5A",
       fontFamily: "Poppins",
       fontWeight: 500,
       fontSize: "12px",
       mt: 0.1,
       "&.MuiSelect-outlined": {},
-
       "&.MuiInputBase-input": {
         fontFamily: "Arial !important",
         marginTop: "1px !important",
-        color: "#A9A9A9 !important",
+        color: "#5A5A5A",
+        display: "flex",
+        alignItems: "center",
       },
       "&.MuiOutlinedInput-input": {
         paddingLeft: "12px !important",

@@ -14,7 +14,6 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { extractDate } from "../../utils/FunctionsUtils";
-// import { extractDate } from "../../utils/Helpers";
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
@@ -62,6 +61,11 @@ const styles = {
   },
   dateCell: {
     align: "center",
+  },
+
+  chipStyle: {
+    width: "70px",
+    height: "30px",
   },
 };
 
@@ -138,6 +142,7 @@ const TransactionTable = ({ transactions, loading, error }) => {
                         : "error"
                     }
                     size="small"
+                    sx={styles.chipStyle}
                   />
                 </TableCell>
                 <TableCell>{row.custom_order_id}</TableCell>
