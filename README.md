@@ -114,7 +114,6 @@ school-pay-frontend/
 3. Create a `.env` file in the root directory:
 
    ```
-   REACT_APP_API_URL=https://your-backend-api-url.com/api
    ```
 
 4. Start the development server
@@ -124,11 +123,15 @@ school-pay-frontend/
 
 The application will be available at `http://localhost:3000`
 
+
+REACT_APP_LIVE_URL=https://schoolpayfrontendassignment.vercel.app/
+
+
 ## 📱 Pages and Components
 
 ### 1. Dashboard Page
 
-![Dashboard Screenshot 1](./src/dashBoardResponsiveOne.png)
+![Dashboard Screenshot 1](./src/screenshots/dashBoardResponsiveOne.png)
 ![Dashboard Screenshot 2](./src/screenshots/dashBoardResponsiveTwo.png)
 ![Dashboard Screenshot 3](./src/screenshots/dashBoardResponsiveThree.png)
 
