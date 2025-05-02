@@ -249,7 +249,7 @@ The application includes basic component tests using React Testing Library.
 
 ## 🚀 Deployment
 
-The frontend is deployed at: [https://school-payments-dashboard.example.com](https://school-payments-dashboard.example.com)
+The frontend is deployed at: [https://schoolpayfrontendassignment.vercel.app/](https://schoolpayfrontendassignment.vercel.app/)
 
 ### Deployment Process:
 
