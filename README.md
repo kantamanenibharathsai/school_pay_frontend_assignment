@@ -231,7 +231,7 @@ The application implements a custom hook `useDebounce` in `src/hooks/useDebounce
 - **Form Validation**: Input validation before form submission
 - **Visual Feedback**: Hover effects and status indicators
 - **Clean Layout**: Intuitive navigation and data presentation
-- **Responsive Navigation**: Menu adapts to different screen sizes (see [Menu Screenshot](./screenshots/menuResponsive.png))
+- **Responsive Navigation**: Menu adapts to different screen sizes (see [Menu Screenshot](./src/screenshots/menuResponsive.png))
 
 ## 🔄 Theme Support
 
