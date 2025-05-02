@@ -99,17 +99,20 @@ school-pay-frontend/
 ### Installation
 
 1. Clone the repository
+
    ```bash
    git clone https://github.com/yourusername/school-pay-frontend.git
    cd school-pay-frontend
    ```
 
 2. Install dependencies
+
    ```bash
    npm install
    ```
 
 3. Create a `.env` file in the root directory:
+
    ```
    REACT_APP_API_URL=https://your-backend-api-url.com/api
    ```
@@ -124,11 +127,13 @@ The application will be available at `http://localhost:3000`
 ## 📱 Pages and Components
 
 ### 1. Dashboard Page
-![Dashboard Screenshot 1](./screenshots/dashBoardResponsiveOne.png)
-![Dashboard Screenshot 2](./screenshots/dashBoardResponsiveTwo.png)
-![Dashboard Screenshot 3](./screenshots/dashBoardResponsiveThree.png)
+
+![Dashboard Screenshot 1](./src/dashBoardResponsiveOne.png)
+![Dashboard Screenshot 2](./src/screenshots/dashBoardResponsiveTwo.png)
+![Dashboard Screenshot 3](./src/screenshots/dashBoardResponsiveThree.png)
 
 The main dashboard displays all transactions in a searchable, paginated table with:
+
 - Transaction details (collect_id, school_id, gateway, amounts, status)
 - Status filtering (Success, Pending, Failed)
 - Date range filtering
@@ -136,46 +141,56 @@ The main dashboard displays all transactions in a searchable, paginated table wi
 - Clean UI with hover effects
 
 **Key Components:**
+
 - `TransactionTable.jsx` - Displays transaction data with pagination
 - `TransactionFilters.jsx` - Provides filtering options
 
 ### 2. School Transactions Page
-![School Transactions Screenshot 1](./screenshots/SpecificSchoolTransResponsiveOne.png)
-![School Transactions Screenshot 2](./screenshots/SpecificSchoolTransResponsiveTwo.png)
-![School Transactions Screenshot 3](./screenshots/SpecificSchoolTransResponsiveThree.png)
+
+![School Transactions Screenshot 1](./src/screenshots/SpecificSchoolTransResponsiveOne.png)
+![School Transactions Screenshot 2](./src/screenshots/SpecificSchoolTransResponsiveTwo.png)
+![School Transactions Screenshot 3](./src/screenshots/SpecificSchoolTransResponsiveThree.png)
 
 View transactions for a specific school:
+
 - School selector dropdown
 - Filtered transaction table
 - Date range filtering
 
 **Key Components:**
+
 - `SchoolSelector.jsx` - Dropdown to select specific school
 - `SchoolTransactionsTable.jsx` - Displays school-specific transactions
 
 ### 3. Transaction Status Page
-![Transaction Status Screenshot 1](./screenshots/TransStatusCheckResponsiveOne.png)
-![Transaction Status Screenshot 2](./screenshots/TransStatusCheckResponsiveTwo.png)
+
+![Transaction Status Screenshot 1](./src/screenshots/TransStatusCheckResponsiveOne.png)
+![Transaction Status Screenshot 2](./src/screenshots/TransStatusCheckResponsiveTwo.png)
 
 Check the status of a specific transaction:
+
 - Input field for custom_order_id
 - Status display with visual indicators
 
 **Key Components:**
+
 - `StatusCheckerForm.jsx` - Form to input custom_order_id
 - `StatusDisplay.jsx` - Displays transaction status with visual indicators
 
 ### 4. Manual Update Page
-![Manual Update Screenshot 1](./screenshots/TransStatusUpdateResponsiveOne.png)
-![Manual Update Screenshot 2](./screenshots/TransStatusUpdateResponsiveTwo.png)
-![Manual Update Screenshot 3](./screenshots/TransStatusUpdateResponsiveThree.png)
+
+![Manual Update Screenshot 1](./src/screenshots/TransStatusUpdateResponsiveOne.png)
+![Manual Update Screenshot 2](./src/screenshots/TransStatusUpdateResponsiveTwo.png)
+![Manual Update Screenshot 3](./src/screenshots/TransStatusUpdateResponsiveThree.png)
 
 Manually update transaction status:
+
 - Input for custom_order_id
 - Status selector
 - Success/error handling
 
 **Key Components:**
+
 - `ManualUpdateForm.jsx` - Form to update transaction status
 
 ## 🔌 API Integration
@@ -236,6 +251,7 @@ The frontend is deployed at: [https://school-payments-dashboard.example.com](htt
 ### Deployment Process:
 
 1. Build the production-ready application:
+
    ```bash
    npm run build
    ```
