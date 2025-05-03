@@ -26,6 +26,8 @@ A responsive, modern frontend for the School Payments & Dashboard application, b
 ## 📁 Project Structure
 
 ```
+School Payments & Dashboard Frontend - Folder Structure
+
 school-pay-frontend/
 ├── node_modules/        # Dependencies
 ├── public/              # Static files
@@ -49,15 +51,21 @@ school-pay-frontend/
 │   │   ├── dashboard/   # Dashboard components
 │   │   │   ├── index.js
 │   │   │   ├── TransactionFilters.jsx
-│   │   │   └── TransactionTable.jsx
+│   │   │   ├── TransactionFilterStyles.js
+│   │   │   ├── TransactionTable.jsx
+│   │   │   └── TransactionTableStyles.js
 │   │   ├── manual_update/
-│   │   │   └── ManualUpdateForm.jsx
+│   │   │   ├── ManualUpdateForm.jsx
+│   │   │   └── ManualUpdateFormStyles.js
 │   │   ├── navbar/
-│   │   │   └── Navbar.jsx
+│   │   │   ├── Navbar.jsx
+│   │   │   └── NavbarStyles.js
 │   │   ├── school_transactions/
 │   │   │   ├── index.js
 │   │   │   ├── SchoolSelector.jsx
-│   │   │   └── SchoolTransactionsTable.jsx
+│   │   │   ├── SchoolSelectorStyles.js
+│   │   │   ├── SchoolTransactionsTable.jsx
+│   │   │   └── SchoolTransactionsTableStyles.js
 │   │   └── transaction_status/
 │   │       ├── StatusCheckerForm.jsx
 │   │       └── StatusDisplay.jsx
@@ -66,10 +74,17 @@ school-pay-frontend/
 │   ├── hooks/           # Custom React hooks
 │   │   └── useDebounce.js
 │   ├── pages/           # Application pages
-│   │   ├── DashboardPage.jsx
-│   │   ├── ManualUpdatePage.jsx
-│   │   ├── SchoolTransactionsPage.jsx
-│   │   └── TransactionStatusPage.jsx
+│   │   ├── dashboard/
+│   │   │   ├── DashboardPage.jsx
+│   │   │   └── DashboardPageStyles.js
+│   │   ├── manual_update/
+│   │   │   └── ManualUpdatePage.jsx
+│   │   ├── school_transactions/
+│   │   │   ├── SchoolTransactionsPage.jsx
+│   │   │   └── SchoolTransactionsPageStyles.jsx
+│   │   └── transaction_status/
+│   │       ├── TransactionStatusPage.jsx
+│   │       └── TransactionStatusPageStyles.js
 │   ├── styles/          # Styling
 │   │   ├── common.js
 │   │   └── Theme.js
@@ -86,7 +101,7 @@ school-pay-frontend/
 ├── .gitignore
 ├── package-lock.json
 ├── package.json
-└── README.md
+
 ```
 
 ## 🚀 Getting Started
@@ -101,7 +116,7 @@ school-pay-frontend/
 1. Clone the repository
 
    ```bash
-   git clone https://github.com/yourusername/school-pay-frontend.git
+   git clone https://github.com/kantamanenibharathsai/school_pay_frontend_assignment.git
    cd school-pay-frontend
    ```
 

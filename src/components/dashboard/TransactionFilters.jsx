@@ -11,35 +11,9 @@ import {
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import commonStyles from "../../styles/common";
 
-const styles = {
-  filterContainer: {
-    margin: { sm: "auto" },
-    marginBottom: (theme) => theme.spacing(2),
-    marginTop: { xs: 1, sm: 1.5, md: 2, lg: "4" },
-    display: "flex",
-    flexDirection: { xs: "column", sm: "column", md: "row" },
-    gap: (theme) => theme.spacing(2),
-    width: { xs: "100%", sm: "76%", md: "90%", lg: "75%", xl: "70%" },
-    flexWrap: "wrap",
-  },
-  innerContainer: {
-    display: "flex",
-    flexDirection: { xs: "column", md: "row" },
-    gap: 2,
-    width: "100%",
-  },
-  statusFormControl: {
-    width: { xs: "100%", md: "30%" },
-    minWidth: { md: "120px" },
-  },
-  searchTextField: {
-    ...commonStyles.textfieldStyle,
-    width: "100%",
-    flexBasis: "100%",
-  },
-};
+import commonStyles from "../../styles/common";
+import { transactionFilterStyles } from "./TransactionFiterStyles";
 
 const TransactionFilters = ({
   statusFilter,
@@ -52,19 +26,19 @@ const TransactionFilters = ({
 }) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
-      <Box sx={styles.filterContainer}>
+      <Box sx={transactionFilterStyles.filterContainer}>
         <TextField
           label="Enter Collect ID / Customer Order ID"
           value={searchTerm}
           onChange={onSearchChange}
           size="small"
-          sx={styles.searchTextField}
+          sx={transactionFilterStyles.searchTextField}
           error={!!fieldErrors.searchTerm}
           helperText={fieldErrors.searchTerm}
         />
-        <Box sx={styles.innerContainer}>
+        <Box sx={transactionFilterStyles.innerContainer}>
           <FormControl
-            sx={styles.statusFormControl}
+            sx={transactionFilterStyles.statusFormControl}
             size="small"
             error={!!fieldErrors.status}
           >

@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { extractDate } from "../../utils/FunctionsUtils";
+import { transactionTableStyles } from "./TransactionTableStyles";
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
@@ -21,58 +22,10 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export const transactionTableStyles = {
-  tableHeaderCell: {
-    lineHeight: { xs: "21px", lg: "30px" },
-  },
-  tableBodyCell: {
-    fontSize: "0.8rem",
-    textAlign: "left",
-  },
-  paginationContainer: {
-    display: "flex",
-    justifyContent: "flex-end",
-    padding: 2,
-  },
-  centeredMessage: {
-    display: "flex",
-    justifyContent: "center",
-    paddingY: 4,
-  },
-  paperWrapper: {
-    width: "100%",
-    overflow: "auto",
-  },
-};
-
-const styles = {
-  loadingContainer: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    minHeight: 200,
-  },
-  errorContainer: {
-    padding: (theme) => theme.spacing(2),
-    color: (theme) => theme.palette.error.main,
-  },
-  table: {
-    minWidth: 650,
-  },
-  dateCell: {
-    align: "center",
-  },
-
-  chipStyle: {
-    width: "70px",
-    height: "30px",
-  },
-};
-
 const TransactionTable = ({ transactions, loading, error }) => {
   if (loading) {
     return (
-      <Box sx={styles.loadingContainer}>
+      <Box sx={transactionTableStyles.loadingContainer}>
         <CircularProgress />
       </Box>
     );
@@ -80,7 +33,7 @@ const TransactionTable = ({ transactions, loading, error }) => {
 
   if (error) {
     return (
-      <Box sx={styles.errorContainer}>
+      <Box sx={transactionTableStyles.errorContainer}>
         <Typography color="error">{error}</Typography>
       </Box>
     );
@@ -89,7 +42,7 @@ const TransactionTable = ({ transactions, loading, error }) => {
   return (
     <>
       <TableContainer component={Paper}>
-        <Table sx={styles.table} aria-label="simple table">
+        <Table sx={transactionTableStyles.table} aria-label="simple table">
           <TableHead>
             <TableRow>
               <TableCell sx={transactionTableStyles.tableHeaderCell}>
@@ -128,7 +81,7 @@ const TransactionTable = ({ transactions, loading, error }) => {
                 <TableCell>{row.gateway}</TableCell>
                 <TableCell>${row.order_amount}</TableCell>
                 <TableCell>${row.transaction_amount}</TableCell>
-                <TableCell sx={styles.dateCell}>
+                <TableCell sx={transactionTableStyles.dateCell}>
                   {extractDate(row.transaction_date).slice(0)}
                 </TableCell>
                 <TableCell>
@@ -142,7 +95,7 @@ const TransactionTable = ({ transactions, loading, error }) => {
                         : "error"
                     }
                     size="small"
-                    sx={styles.chipStyle}
+                    sx={transactionTableStyles.chipStyle}
                   />
                 </TableCell>
                 <TableCell>{row.custom_order_id}</TableCell>

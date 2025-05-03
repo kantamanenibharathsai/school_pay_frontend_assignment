@@ -6,65 +6,19 @@ import {
   Pagination,
   CircularProgress,
   Button,
-  Container,
   Alert,
+  useMediaQuery,
 } from "@mui/material";
-import { getTransactionsBySchool } from "../api/transactions";
-import SchoolTransactionsTable from "../components/school_transactions/SchoolTransactionsTable";
+import SchoolTransactionsTable from "../../components/school_transactions/SchoolTransactionsTable";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import commonStyles from "../styles/common";
-import useDebounce from "../hooks/useDebounce";
-import { delay } from "../utils/FunctionsUtils";
-
-
-const styles = {
-  container: {
-    marginTop: (theme) => theme.spacing(3),
-  },
-  formContainer: {
-    margin: { sm: "auto" },
-    marginBottom: (theme) => theme.spacing(2),
-    marginTop: { xs: 1, sm: 1.5, md: 2, lg: "4" },
-    display: "flex",
-    flexDirection: { xs: "column", sm: "column", md: "row" },
-    justifyContent: "space-between",
-    gap: (theme) => theme.spacing(2),
-    width: { xs: "100%", sm: "70%", md: "61%", lg: "55%", xl: "45%" },
-    flexWrap: "wrap",
-  },
-  paginationContainer: {
-    marginTop: (theme) => theme.spacing(2),
-    display: "flex",
-    justifyContent: "flex-end",
-    alignItems: "center",
-  },
-  noDataContainer: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    gap: "15px",
-    justifyContent: "center",
-  },
-  noDataText: {
-    fontSize: { xs: "1rem", sm: "1.2rem" },
-    color: "grey",
-    textAlign: "center",
-  },
-  backButton: {
-    width: "100px",
-    "&:hover": {
-      backgroundColor: "lightblue !important",
-      color: "#fff",
-    },
-  },
-  dateError: {
-    margin: "auto",
-    marginTop: (theme) => theme.spacing(2.6),
-    width: { xs: "100%", sm: "75%", md: "50%", lg: "45%" },
-  },
-};
+import schoolTransactionsStyles from "./SchoolTransactionsPageStyles";
+import commonStyles from "../../styles/common";
+import { delay } from "../../utils/FunctionsUtils";
+import useDebounce from "../../hooks/useDebounce";
+import { getTransactionsBySchool } from "../../api/transactions";
+import dashboardStyles from "../dashboard/DashboardPageStyles";
 
 const SchoolTransactionsPage = () => {
   const [allTransactions, setAllTransactions] = useState([]);
@@ -76,6 +30,7 @@ const SchoolTransactionsPage = () => {
   const debouncedSchoolId = useDebounce(schoolId, 500);
   const [page, setPage] = useState(1);
   const rowsPerPage = 10;
+  const isExtraSmall = useMediaQuery("(max-width:320px)");
 
   const validateDates = (startDate, endDate) => {
     if (startDate && endDate && startDate > endDate) {
@@ -135,7 +90,6 @@ const SchoolTransactionsPage = () => {
     return () => {
       isMounted = false;
     };
-    // eslint-disable-next-line
   }, [debouncedSchoolId, dateRange, dateError]);
 
   const paginatedTransactions = allTransactions.slice(
@@ -174,19 +128,11 @@ const SchoolTransactionsPage = () => {
     paginatedTransactions && paginatedTransactions.length > 0;
 
   return (
-    <Container sx={styles.container} mt={2}>
-      <Typography
-        variant="h4"
-        sx={{
-          ...commonStyles.title,
-          textAlign: { xs: "left", sm: "center" },
-          fontSize: { xs: "21px", sm: "30px", md: "31px" },
-        }}
-        mb={4}
-      >
+    <Box sx={commonStyles.container}>
+      <Typography sx={commonStyles.title} mb={3}>
         Specific School Transactions
       </Typography>
-      <Box sx={styles.formContainer}>
+      <Box sx={schoolTransactionsStyles.formContainer}>
         <TextField
           label="Enter School ID"
           value={schoolId}
@@ -213,39 +159,44 @@ const SchoolTransactionsPage = () => {
         </LocalizationProvider>
       </Box>
       {dateError && (
-        <Alert severity="error" sx={styles.dateError}>
+        <Alert severity="error" sx={schoolTransactionsStyles.dateError}>
           {dateError}
         </Alert>
       )}
       <Box mt={5}>
         {loading ? (
-          <Box sx={styles.noDataContainer}>
+          <Box sx={commonStyles.loadingCont}>
             <CircularProgress />
           </Box>
         ) : error ? (
-          <Box sx={styles.noDataContainer}>
+          <Box sx={commonStyles.errorCont}>
             <Typography color="error">{error}</Typography>
           </Box>
         ) : hasTransactions ? (
-          <>
+          <Box sx={commonStyles.tablePageContainer}>
             <SchoolTransactionsTable
               transactions={paginatedTransactions}
               loading={loading}
               error={error}
             />
-            <Box sx={styles.paginationContainer}>
-              <Pagination
-                count={Math.ceil(allTransactions.length / rowsPerPage)}
-                page={page}
-                onChange={handlePageChange}
-                color="primary"
-                size="medium"
-              />
+            <Box sx={dashboardStyles.widthCont}>
+              <Box sx={dashboardStyles.paginationContainer}>
+                <Pagination
+                  count={Math.ceil(allTransactions.length / rowsPerPage)}
+                  page={page}
+                  onChange={handlePageChange}
+                  color={"primary"}
+                  size={isExtraSmall ? "small" : "large"}
+                  siblingCount={isExtraSmall ? 0 : 1}
+                  boundaryCount={isExtraSmall ? 1 : 2}
+                  sx={dashboardStyles.pagination(isExtraSmall)}
+                />
+              </Box>
             </Box>
-          </>
+          </Box>
         ) : (
-          <Box sx={styles.noDataContainer}>
-            <Typography sx={styles.noDataText}>
+          <Box sx={schoolTransactionsStyles.noDataContainer}>
+            <Typography sx={schoolTransactionsStyles.noDataText}>
               {debouncedSchoolId && !dateError
                 ? "No transactions found for this school."
                 : "Enter a school ID to view transactions."}
@@ -255,7 +206,7 @@ const SchoolTransactionsPage = () => {
                 variant="contained"
                 color="primary"
                 onClick={handleReset}
-                sx={styles.backButton}
+                sx={schoolTransactionsStyles.backButton}
               >
                 {loading ? (
                   <CircularProgress size={24} color="inherit" />
@@ -267,7 +218,7 @@ const SchoolTransactionsPage = () => {
           </Box>
         )}
       </Box>
-    </Container>
+    </Box>
   );
 };
 

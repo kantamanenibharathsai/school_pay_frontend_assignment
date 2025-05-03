@@ -1,8 +1,7 @@
 import React from "react";
 import { Typography, Box } from "@mui/material";
-import ManualUpdateForm from "../components/manual_update/ManualUpdateForm";
-import commonStyles from "../styles/common";
-
+import ManualUpdateForm from "../../components/manual_update/ManualUpdateForm";
+import commonStyles from "../../styles/common";
 
 const ManualUpdatePage = () => {
   return (

@@ -1,11 +1,17 @@
 const commonStyles = {
   container: {
-    marginTop: (theme) => theme.spacing(3),
   },
   title: {
-    fontFamily: "Roboto",
-    fontSize: { xs: "24px", sm: "27px", md: "30px", lg: "35x" },
+    fontSize: { xs: "22px", sm: "25px", md: "28px", lg: "33x" },
     textAlign: "center",
+    fontWeight: 600,
+  },
+
+  titleTwo: {
+    fontSize: { xs: "17px", sm: "18px", md: "18px", lg: "20px" },
+    textAlign: "center",
+    mt: 5,
+    mb: 5,
     fontWeight: 600,
   },
 
@@ -135,6 +141,43 @@ const commonStyles = {
     mt: 2,
     width: "100%",
     height: "auto",
+  },
+
+  loadingCont: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height: { xs: "130px", md: "200px" },
+    width: "100%",
+  },
+
+  errorCont: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "20px",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "130px",
+    width: "100%",
+  },
+
+  tablePageContainer: {
+    width: { xs: "100%", sm: "90%", md: "90%", lg: "75%", xl: "70%" },
+    margin: "auto",
+  },
+
+  errorText: { fontWeight: 500, fontSize: { xs: "14px", sm: "16px" } },
+
+  filterContainer: {
+    margin: { sm: "auto" },
+    marginBottom: (theme) => theme.spacing(2),
+    marginTop: { xs: 1, sm: 1.5, md: 2, lg: "4" },
+    display: "flex",
+    flexDirection: { xs: "column", sm: "column", md: "row" },
+    gap: (theme) => theme.spacing(2.3),
+    width: { xs: "100%", sm: "90%", md: "90%", lg: "75%", xl: "70%" },
+    flexWrap: "wrap",
+    border: "2px solid red"
   },
 };
 

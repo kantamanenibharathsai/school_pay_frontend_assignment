@@ -1,26 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Typography, Box } from "@mui/material";
-import StatusCheckerForm from "../components/transaction_status/StatusCheckerForm";
-import StatusDisplay from "../components/transaction_status/StatusDisplay";
-import { checkTransactionStatus } from "../api/transactions";
-import commonStyles from "../styles/common";
-import { delay } from "../utils/FunctionsUtils";
-
-const styles = {
-  container: {
-    marginTop: (theme) => theme.spacing(3),
-  },
-  title: {
-    marginBottom: (theme) => theme.spacing(2),
-  },
-  formCont: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    mt: "30px",
-  },
-};
+import StatusCheckerForm from "../../components/transaction_status/StatusCheckerForm";
+import StatusDisplay from "../../components/transaction_status/StatusDisplay";
+import { checkTransactionStatus } from "../../api/transactions";
+import commonStyles from "../../styles/common";
+import { delay } from "../../utils/FunctionsUtils";
+import { styles } from "./TransactionStatusPageStyles";
 
 const TransactionStatusPage = () => {
   const [customOrderId, setCustomOrderId] = useState("");

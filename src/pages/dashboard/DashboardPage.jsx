@@ -1,63 +1,19 @@
 import React, { useState, useEffect } from "react";
 import {
-  Container,
   Typography,
   Box,
   Pagination,
   CircularProgress,
   Button,
+  useMediaQuery,
 } from "@mui/material";
-import { getAllTransactions } from "../api/transactions";
-import TransactionTable from "../components/dashboard/TransactionTable";
-import TransactionFilters from "../components/dashboard/TransactionFilters";
-import useDebounce from "../hooks/useDebounce";
-import commonStyles from "../styles/common";
-import { delay } from "../utils/FunctionsUtils";
-
-const styles = {
-  container: {
-    marginTop: (theme) => theme.spacing(3),
-  },
-  title: {
-    marginBottom: (theme) => theme.spacing(2),
-    fontFamily: "Roboto",
-    fontSize: { xs: "24px", sm: "27px", md: "30px", lg: "35px" },
-    textAlign: "center",
-    fontWeight: 600,
-  },
-  titleTwo: {
-    fontFamily: "Roboto",
-    fontSize: { xs: "17px", sm: "18px", md: "22px", lg: "24px" },
-    textAlign: { xs: "left", md: "center" },
-    fontWeight: 600,
-  },
-  paginationContainer: {
-    display: "flex",
-    justifyContent: "flex-end",
-    alignItems: "center",
-    mb: 5,
-    mt: 3,
-  },
-  noDataContainer: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    gap: "15px",
-    justifyContent: "center",
-  },
-  noDataText: {
-    fontSize: { xs: "1rem", sm: "1.2rem" },
-    color: "grey",
-    textAlign: "center",
-  },
-  backButton: {
-    width: "100px",
-    "&:hover": {
-      backgroundColor: "lightblue !important",
-      color: "#fff",
-    },
-  },
-};
+import { getAllTransactions } from "../../api/transactions";
+import TransactionTable from "../../components/dashboard/TransactionTable";
+import TransactionFilters from "../../components/dashboard/TransactionFilters";
+import useDebounce from "../../hooks/useDebounce";
+import { delay } from "../../utils/FunctionsUtils";
+import dashboardStyles from "./DashboardPageStyles";
+import commonStyles from "../../styles/common";
 
 const DashboardPage = () => {
   const [transactions, setTransactions] = useState([]);
@@ -70,6 +26,7 @@ const DashboardPage = () => {
   const [dateRange, setDateRange] = useState([null, null]);
   const [searchTerm, setSearchTerm] = useState("");
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
+  const isExtraSmall = useMediaQuery("(max-width:320px)");
 
   useEffect(() => {
     let isMounted = true;
@@ -78,7 +35,6 @@ const DashboardPage = () => {
     setFieldErrors({});
 
     (async () => {
-      // Start API call and delay in parallel
       const [result] = await Promise.all([
         getAllTransactions(
           page,
@@ -119,7 +75,7 @@ const DashboardPage = () => {
     setFieldErrors({});
   };
 
-  const handlePageChange = (event, newPage) => {
+  const handlePageChange = (_, newPage) => {
     setPage(newPage);
   };
 
@@ -141,8 +97,8 @@ const DashboardPage = () => {
   const hasTransactions = transactions && transactions.length > 0;
 
   return (
-    <Container sx={styles.container}>
-      <Typography variant="h4" sx={commonStyles.title} mb={4}>
+    <Box sx={commonStyles.container}>
+      <Typography sx={commonStyles.title} mb={3}>
         Transactions Dashboard
       </Typography>
       <TransactionFilters
@@ -154,24 +110,26 @@ const DashboardPage = () => {
         onSearchChange={handleSearchChange}
         fieldErrors={fieldErrors}
       />
-      <Typography variant="h4" sx={styles.titleTwo} mt={4}>
-        All the Schools Transactions Details Shown Below
-      </Typography>
+      {!error && !loading && (
+        <Typography variant="h4" sx={commonStyles.titleTwo}>
+          All the Schools Transactions Details Shown Below
+        </Typography>
+      )}
       <Box mt={4}>
         {loading ? (
-          <Box sx={styles.noDataContainer}>
+          <Box sx={commonStyles.loadingCont}>
             <CircularProgress />
           </Box>
         ) : error ? (
-          <Box sx={styles.noDataContainer}>
-            <Typography color="error" sx={{ fontWeight: 500 }}>
+          <Box sx={commonStyles.errorCont}>
+            <Typography color="error" sx={commonStyles.errorText}>
               {error}
             </Typography>
             <Button
               variant="contained"
               color="primary"
               onClick={handleClick}
-              sx={styles.backButton}
+              sx={dashboardStyles.backButton}
             >
               {loading ? (
                 <CircularProgress size={24} color="inherit" />
@@ -181,36 +139,34 @@ const DashboardPage = () => {
             </Button>
           </Box>
         ) : hasTransactions ? (
-          <>
+          <Box sx={commonStyles.tablePageContainer}>
             <TransactionTable
               transactions={transactions}
               loading={loading}
               error={error}
             />
-            <Box sx={styles.paginationContainer}>
-              <Pagination
-                count={page + 1}
-                page={page}
-                onChange={handlePageChange}
-                color="primary"
-                size="medium"
-                sx={{ mt: -2 }}
-              />
+            <Box sx={dashboardStyles.widthCont}>
+              <Box sx={dashboardStyles.paginationContainer}>
+                <Pagination
+                  count={page + 1}
+                  page={page}
+                  onChange={handlePageChange}
+                  color={"primary"}
+                  size={isExtraSmall ? "small" : "large"}
+                  siblingCount={isExtraSmall ? 0 : 1}
+                  boundaryCount={isExtraSmall ? 1 : 2}
+                  sx={dashboardStyles.pagination(isExtraSmall)}
+                />
+              </Box>
             </Box>
-          </>
+          </Box>
         ) : (
-          <Box sx={styles.noDataContainer}>
-            <Typography sx={styles.noDataText}>
-              No transactions found.
-            </Typography>
-            <Typography sx={styles.noDataText}>
-              Click back to get all the Transactions.
-            </Typography>
+          <Box sx={commonStyles.loadingCont}>
             <Button
               variant="contained"
               color="primary"
               onClick={handleClick}
-              sx={styles.backButton}
+              sx={dashboardStyles.backButton}
             >
               {loading ? (
                 <CircularProgress size={24} color="inherit" />
@@ -221,7 +177,7 @@ const DashboardPage = () => {
           </Box>
         )}
       </Box>
-    </Container>
+    </Box>
   );
 };
 

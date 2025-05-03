@@ -34,7 +34,7 @@ export const getAllTransactions = async (
         data: null,
         error: {
           status,
-          message: data?.message, // Use backend message as-is
+          message: data?.message,
           errors: data?.errors || {},
         },
       };
@@ -91,7 +91,6 @@ export const getTransactionsBySchool = async (
         },
       };
     } else {
-      // Other error
       return {
         data: null,
         error: {

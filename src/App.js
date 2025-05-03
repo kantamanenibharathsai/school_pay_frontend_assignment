@@ -1,11 +1,11 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./components/navbar/Navbar";
-import DashboardPage from "./pages/DashboardPage";
-import SchoolTransactionsPage from "./pages/SchoolTransactionsPage";
-import TransactionStatusPage from "./pages/TransactionStatusPage";
-import ManualUpdatePage from "./pages/ManualUpdatePage";
+import TransactionStatusPage from "./pages/transaction_status/TransactionStatusPage";
+import ManualUpdatePage from "./pages/manual_update/ManualUpdatePage";
 import { ColorModeContextProvider } from "./contexts/ThemeContext";
+import DashboardPage from "./pages/dashboard/DashboardPage";
+import SchoolTransactionsPage from "./pages/school_transactions/SchoolTransactionsPage";
 
 function App() {
   return (

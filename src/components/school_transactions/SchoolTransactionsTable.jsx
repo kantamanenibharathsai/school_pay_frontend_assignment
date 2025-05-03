@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { extractDate } from "../../utils/FunctionsUtils";
+import { schoolTableStyles } from "./SchoolTransactionsTableStyles";
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
@@ -21,64 +22,10 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export const schoolTableStyles = {
-  tableHeaderCell: {
-    lineHeight: { xs: "21px", lg: "30px" },
-    fontWeight: 600,
-    fontSize: "0.9rem",
-  },
-  tableBodyCell: {
-    fontSize: "0.8rem",
-    textAlign: "left",
-  },
-  paginationContainer: {
-    display: "flex",
-    justifyContent: "flex-end",
-    padding: 2,
-  },
-  centeredMessage: {
-    display: "flex",
-    justifyContent: "center",
-    paddingY: 4,
-  },
-  paperWrapper: {
-    width: "100%",
-    overflow: "auto",
-  },
-};
-
-const styles = {
-  loadingContainer: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    minHeight: 200,
-  },
-  errorContainer: {
-    padding: (theme) => theme.spacing(2),
-    color: (theme) => theme.palette.error.main,
-    textAlign: "center",
-  },
-  table: {
-    minWidth: 650,
-  },
-  dateCell: {
-    align: "center",
-  },
-  noDataText: {
-    color: "grey",
-    fontFamily: "Roboto",
-    fontSize: { xs: "1rem", sm: "1.2rem" },
-    textAlign: "center",
-    marginTop: 4,
-    padding: 2,
-  },
-};
-
 const SchoolTransactionsTable = ({ transactions, loading, error }) => {
   if (loading) {
     return (
-      <Box sx={styles.loadingContainer}>
+      <Box sx={schoolTableStyles.loadingContainer}>
         <CircularProgress />
       </Box>
     );
@@ -86,7 +33,7 @@ const SchoolTransactionsTable = ({ transactions, loading, error }) => {
 
   if (error) {
     return (
-      <Box sx={styles.errorContainer}>
+      <Box sx={schoolTableStyles.errorContainer}>
         <Typography color="error">{error}</Typography>
       </Box>
     );
@@ -94,15 +41,18 @@ const SchoolTransactionsTable = ({ transactions, loading, error }) => {
 
   if (transactions.length === 0) {
     return (
-      <Typography sx={styles.noDataText}>
+      <Typography sx={schoolTableStyles.noDataText}>
         No transactions found. Enter School ID to view transactions.
       </Typography>
     );
   }
 
   return (
-    <TableContainer component={Paper} sx={schoolTableStyles.paperWrapper}>
-      <Table sx={styles.table} aria-label="school transactions table">
+    <TableContainer component={Paper}>
+      <Table
+        sx={schoolTableStyles.table}
+        aria-label="school transactions table"
+      >
         <TableHead>
           <TableRow>
             <TableCell sx={schoolTableStyles.tableHeaderCell}>
@@ -152,11 +102,14 @@ const SchoolTransactionsTable = ({ transactions, loading, error }) => {
                 ${row.transaction_amount}
               </TableCell>
               <TableCell
-                sx={{ ...schoolTableStyles.tableBodyCell, ...styles.dateCell }}
+                sx={{
+                  ...schoolTableStyles.tableBodyCell,
+                  ...schoolTableStyles.dateCell,
+                }}
               >
                 {extractDate(row.transaction_date).slice(0)}
               </TableCell>
-              <TableCell sx={schoolTableStyles.tableBodyCell}>
+              <TableCell>
                 <Chip
                   label={row.status}
                   color={
@@ -167,6 +120,7 @@ const SchoolTransactionsTable = ({ transactions, loading, error }) => {
                       : "error"
                   }
                   size="small"
+                  sx={schoolTableStyles.chipStyle}
                 />
               </TableCell>
               <TableCell sx={schoolTableStyles.tableBodyCell}>
