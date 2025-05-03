@@ -126,12 +126,7 @@ school-pay-frontend/
    npm install
    ```
 
-3. Create a `.env` file in the root directory:
-
-   ```
-   ```
-
-4. Start the development server
+3. Start the development server
    ```bash
    npm start
    ```
