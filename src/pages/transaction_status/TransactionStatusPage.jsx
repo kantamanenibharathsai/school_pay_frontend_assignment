@@ -4,8 +4,9 @@ import StatusCheckerForm from "../../components/transaction_status/StatusChecker
 import StatusDisplay from "../../components/transaction_status/StatusDisplay";
 import { checkTransactionStatus } from "../../api/transactions";
 import commonStyles from "../../styles/common";
-import { delay } from "../../utils/FunctionsUtils";
 import { styles } from "./TransactionStatusPageStyles";
+
+const POLLING_INTERVAL = 3000;
 
 const TransactionStatusPage = () => {
   const [customOrderId, setCustomOrderId] = useState("");
@@ -22,34 +23,57 @@ const TransactionStatusPage = () => {
     if (!triggerCheck || !customOrderId) return;
 
     let isMounted = true;
+    let intervalId = null;
+
     const fetchStatus = async () => {
       setLoading(true);
-      setStatus(null);
       setError(null);
-      const [data] = await Promise.all([
-        checkTransactionStatus(customOrderId),
-        delay(2000),
-      ]);
-
-      if (!isMounted) return;
-
-      if (data.status === "error") {
-        setStatus(null);
-        setError(data.message);
-      } else {
-        setStatus(data.status);
-        setError(null);
+      try {
+        const [data] = await Promise.all([
+          checkTransactionStatus(customOrderId),
+          new Promise((res) => setTimeout(res, 2000)),
+        ]);
+        if (!isMounted) return null;
+        if (data.status === "error") {
+          setStatus(null);
+          setError(data.message);
+        } else {
+          setStatus(data.status);
+          setError(null);
+        }
+        setLoading(false);
+        return data.status;
+      } catch (err) {
+        if (isMounted) {
+          setStatus(null);
+          setError("Failed to fetch status");
+          setLoading(false);
+        }
+        return null;
       }
-      setLoading(false);
     };
 
-    fetchStatus();
+    const startPolling = () => {
+      intervalId = setInterval(async () => {
+        const currentStatus = await fetchStatus();
+        if (currentStatus && currentStatus !== "Pending") {
+          clearInterval(intervalId);
+        }
+      }, POLLING_INTERVAL);
+    };
+
+    fetchStatus().then((initialStatus) => {
+      if (initialStatus === "Pending") {
+        startPolling();
+      }
+    });
 
     return () => {
       isMounted = false;
+      if (intervalId) clearInterval(intervalId);
     };
     // eslint-disable-next-line
-  }, [triggerCheck]);
+  }, [triggerCheck, customOrderId]);
 
   const setCustomerOrderIdHandler = (orderId) => {
     setCustomOrderId(orderId);
@@ -70,7 +94,11 @@ const TransactionStatusPage = () => {
       </Box>
       {(status || error) && (
         <Box sx={styles.formCont}>
-          <StatusDisplay status={status} error={error} />
+          <StatusDisplay
+            status={status}
+            error={error}
+            // refreshing={status === "Pending" && !loading}
+          />
         </Box>
       )}
     </Box>

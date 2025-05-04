@@ -46,6 +46,18 @@ const TransactionTable = ({ transactions, loading, error }) => {
           <TableHead>
             <TableRow>
               <TableCell sx={transactionTableStyles.tableHeaderCell}>
+                Student ID
+              </TableCell>
+              <TableCell sx={transactionTableStyles.tableHeaderCell}>
+                Student Name
+              </TableCell>
+              <TableCell sx={transactionTableStyles.tableHeaderCell}>
+                Mail ID
+              </TableCell>
+              <TableCell sx={transactionTableStyles.tableHeaderCell}>
+                Phone Number
+              </TableCell>
+              <TableCell sx={transactionTableStyles.tableHeaderCell}>
                 Collect ID
               </TableCell>
               <TableCell sx={transactionTableStyles.tableHeaderCell}>
@@ -74,9 +86,13 @@ const TransactionTable = ({ transactions, loading, error }) => {
           <TableBody>
             {transactions.map((row) => (
               <StyledTableRow key={row.collect_id}>
-                <TableCell component="th" scope="row">
-                  {row.collect_id}
+                <TableCell component={"th"} scope="row">
+                  {row.student_id}
                 </TableCell>
+                <TableCell>{row.name}</TableCell>
+                <TableCell>{row.email}</TableCell>
+                <TableCell>{row.phone}</TableCell>
+                <TableCell>{row.collect_id}</TableCell>
                 <TableCell>{row.school_id}</TableCell>
                 <TableCell>{row.gateway}</TableCell>
                 <TableCell>${row.order_amount}</TableCell>

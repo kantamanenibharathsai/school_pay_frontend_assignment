@@ -56,6 +56,18 @@ const SchoolTransactionsTable = ({ transactions, loading, error }) => {
         <TableHead>
           <TableRow>
             <TableCell sx={schoolTableStyles.tableHeaderCell}>
+              Student ID
+            </TableCell>
+            <TableCell sx={schoolTableStyles.tableHeaderCell}>
+              Student Name
+            </TableCell>
+            <TableCell sx={schoolTableStyles.tableHeaderCell}>
+              Mail ID
+            </TableCell>
+            <TableCell sx={schoolTableStyles.tableHeaderCell}>
+              Phone Number
+            </TableCell>
+            <TableCell sx={schoolTableStyles.tableHeaderCell}>
               Collect ID
             </TableCell>
             <TableCell sx={schoolTableStyles.tableHeaderCell}>
@@ -87,6 +99,18 @@ const SchoolTransactionsTable = ({ transactions, loading, error }) => {
                 scope="row"
                 sx={schoolTableStyles.tableBodyCell}
               >
+                {row.student.student_id}
+              </TableCell>
+              <TableCell sx={schoolTableStyles.tableBodyCell}>
+                {row.student.name}
+              </TableCell>
+              <TableCell sx={schoolTableStyles.tableBodyCell}>
+                {row.student.email}
+              </TableCell>
+              <TableCell sx={schoolTableStyles.tableBodyCell}>
+                {row.student.phone}
+              </TableCell>
+              <TableCell sx={schoolTableStyles.tableBodyCell}>
                 {row.collect_id}
               </TableCell>
               <TableCell sx={schoolTableStyles.tableBodyCell}>

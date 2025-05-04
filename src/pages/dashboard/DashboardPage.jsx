@@ -148,7 +148,7 @@ const DashboardPage = () => {
             <Box sx={dashboardStyles.widthCont}>
               <Box sx={dashboardStyles.paginationContainer}>
                 <Pagination
-                  count={page + 1}
+                  count={page +1}
                   page={page}
                   onChange={handlePageChange}
                   color={"primary"}

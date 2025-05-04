@@ -29,13 +29,9 @@ const styles = {
     alignItems: "center",
     gap: "5px",
   },
-  pendingProgress: {
-    mr: 1,
-  },
 };
 
-const StatusDisplay = ({ status, error  }) => {
-  console.log("status", status, "error", error);
+const StatusDisplay = ({ status, error, refreshing }) => {
   if (error) return <Alert severity="error">{error}</Alert>;
 
   if (status) {
@@ -68,6 +64,11 @@ const StatusDisplay = ({ status, error  }) => {
           <StatusTypography variant="h6" status={status}>
             {status}
           </StatusTypography>
+          {/* {refreshing && (
+            // <Typography variant="caption" color="textSecondary" sx={{ ml: 1 }}>
+            //   Refreshing...
+            // </Typography>
+          )} */}
         </Box>
       </Box>
     );
