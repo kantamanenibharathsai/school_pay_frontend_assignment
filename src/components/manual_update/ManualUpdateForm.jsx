@@ -9,6 +9,7 @@ import {
   MenuItem,
   CircularProgress,
   Alert,
+  useTheme,
 } from "@mui/material";
 import { updateTransactionStatus } from "../../api/transactions";
 import commonStyles from "../../styles/common";
@@ -22,6 +23,7 @@ const ManualUpdateForm = () => {
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const theme = useTheme();
 
   const handleUpdateStatus = async (e) => {
     e.preventDefault();
@@ -58,7 +60,8 @@ const ManualUpdateForm = () => {
           onChange={(e) => setCustomOrderId(e.target.value)}
           fullWidth
           size="small"
-          sx={commonStyles.textfieldStyle}
+          // sx={commonStyles.textfieldStyle}
+          sx={commonStyles.textfieldStyleTheme(theme)}
         />
         <FormControl fullWidth size="small">
           <InputLabel id="new-status-label" sx={commonStyles.statusLabelStyle}>

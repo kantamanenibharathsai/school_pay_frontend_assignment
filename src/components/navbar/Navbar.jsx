@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Box, Typography, Button, } from "@mui/material";
+import { Box, Typography, Button } from "@mui/material";
 import { Link, useLocation } from "react-router-dom";
 import { useColorMode } from "../../contexts/ThemeContext";
 import DashboardIcon from "@mui/icons-material/Dashboard";
@@ -12,6 +12,28 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 import "../../App.css";
 import { navbarStyles } from "./NavbarStyles";
 
+const navItems = [
+  {
+    label: "Dashboard",
+    to: "/",
+    icon: <DashboardIcon sx={navbarStyles.mobileMenuIcon} />,
+  },
+  {
+    label: "By School",
+    to: "/school-transactions",
+    icon: <SchoolIcon sx={navbarStyles.mobileMenuIcon} />,
+  },
+  {
+    label: "Check Status",
+    to: "/transaction-status",
+    icon: <CheckCircleOutlineIcon sx={navbarStyles.mobileMenuIcon} />,
+  },
+  {
+    label: "Manual Update",
+    to: "/manual-update",
+    icon: <UpdateIcon sx={navbarStyles.mobileMenuIcon} />,
+  },
+];
 
 const Navbar = ({ children }) => {
   const location = useLocation();
@@ -46,29 +68,6 @@ const Navbar = ({ children }) => {
 
   const toggleMenu = () => setIsMenuOpen((open) => !open);
   const handleCloseMenu = () => setIsMenuOpen(false);
-
-  const navItems = [
-    {
-      label: "Dashboard",
-      to: "/",
-      icon: <DashboardIcon sx={navbarStyles.mobileMenuIcon} />,
-    },
-    {
-      label: "By School",
-      to: "/school-transactions",
-      icon: <SchoolIcon sx={navbarStyles.mobileMenuIcon} />,
-    },
-    {
-      label: "Check Status",
-      to: "/transaction-status",
-      icon: <CheckCircleOutlineIcon sx={navbarStyles.mobileMenuIcon} />,
-    },
-    {
-      label: "Manual Update",
-      to: "/manual-update",
-      icon: <UpdateIcon sx={navbarStyles.mobileMenuIcon} />,
-    },
-  ];
 
   return (
     <Box sx={navbarStyles.container}>

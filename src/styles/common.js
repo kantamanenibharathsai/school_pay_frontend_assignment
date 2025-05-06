@@ -1,6 +1,5 @@
 const commonStyles = {
-  container: {
-  },
+  container: {},
   title: {
     fontSize: { xs: "22px", sm: "25px", md: "28px", lg: "33x" },
     textAlign: "center",
@@ -40,13 +39,51 @@ const commonStyles = {
     },
     "& .MuiOutlinedInput-root": {
       "& fieldset": {
-        fontSize: "0.9rem",
+        fontSize: "6rem",
         legend: {
-          fontSize: "0.66rem",
+          fontSize: "0.73rem",
         },
       },
     },
   },
+
+  textfieldStyleTheme: (theme) => ({
+    width: "100%",
+    borderRadius: "3px",
+    "& .MuiInputLabel-root": {
+      fontSize: { xs: "13px", sm: "15px" },
+      color: theme.palette.text.secondary,
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      mt: -1.3,
+      height: "100%",
+      "&.Mui-focused": {
+        fontSize: "14px",
+        color: theme.palette.primary.main,
+        mt: -1.4,
+      },
+    },
+    "& .MuiInputBase-input": {
+      height: "38px",
+      borderRadius: "3px",
+      color: theme.palette.text.primary,
+      fontFamily: "Poppins",
+      fontSize: "17px",
+    },
+    "& .MuiOutlinedInput-root": {
+      "& fieldset": {
+        fontSize: "0.72rem",
+        mt: 0,
+        legend: {
+          fontSize: "0.7rem",
+          mt: 0,
+          pt: 0,
+        },
+      },
+    },
+  }),
 
   statusLabelStyle: {
     fontSize: { xs: "12px", sm: "15px" },
@@ -63,14 +100,15 @@ const commonStyles = {
     },
   },
 
-  statusSelectStyle: {
+  statusSelectStyle: (theme) => ({
     width: { xs: "100%" },
     fontSize: "1rem",
     "& .MuiSelect-select": {
       width: { xs: "100%" },
       borderRadius: "3px",
       height: "39px !important",
-      color: "#5A5A5A",
+      color: theme.palette.text.secondary,
+
       fontFamily: "Poppins",
       fontWeight: 500,
       fontSize: "12px",
@@ -79,7 +117,8 @@ const commonStyles = {
       "&.MuiInputBase-input": {
         fontFamily: "Arial !important",
         marginTop: "1px !important",
-        color: "#5A5A5A",
+        color: theme.palette.text.secondary,
+
         display: "flex",
         alignItems: "center",
       },
@@ -116,7 +155,7 @@ const commonStyles = {
       fontSize: "1.1rem",
       fontFamily: "Roboto, sans-serif",
     },
-  },
+  }),
 
   formContainer: {
     display: "flex",
@@ -177,7 +216,7 @@ const commonStyles = {
     gap: (theme) => theme.spacing(2.3),
     width: { xs: "100%", sm: "90%", md: "90%", lg: "75%", xl: "70%" },
     flexWrap: "wrap",
-    border: "2px solid red"
+    border: "2px solid red",
   },
 };
 

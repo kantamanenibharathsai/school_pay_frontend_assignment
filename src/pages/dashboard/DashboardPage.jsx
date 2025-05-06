@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import {
   Typography,
   Box,
-  Pagination,
   CircularProgress,
   Button,
   useMediaQuery,
@@ -14,6 +13,7 @@ import useDebounce from "../../hooks/useDebounce";
 import { delay } from "../../utils/FunctionsUtils";
 import dashboardStyles from "./DashboardPageStyles";
 import commonStyles from "../../styles/common";
+import CustomPaginationWithSlide from "../../components/dashboard/CustomPaginationWithSlide";
 
 const DashboardPage = () => {
   const [transactions, setTransactions] = useState([]);
@@ -25,6 +25,7 @@ const DashboardPage = () => {
   const [statusFilter, setStatusFilter] = useState("");
   const [dateRange, setDateRange] = useState([null, null]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [totalCount, setTotalCount] = useState(0);
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
   const isExtraSmall = useMediaQuery("(max-width:320px)");
 
@@ -53,8 +54,10 @@ const DashboardPage = () => {
         setError(result.error.message);
         setFieldErrors(result.error.errors || {});
         setTransactions([]);
+        setTotalCount(0);
       } else {
         setTransactions(result.data.data || []);
+        setTotalCount(result.data.totalRecords || 0);
         setError(null);
         setFieldErrors({});
       }
@@ -95,6 +98,7 @@ const DashboardPage = () => {
   };
 
   const hasTransactions = transactions && transactions.length > 0;
+  const totalPages = Math.max(1, Math.ceil(totalCount / rowsPerPage));
 
   return (
     <Box sx={commonStyles.container}>
@@ -147,15 +151,11 @@ const DashboardPage = () => {
             />
             <Box sx={dashboardStyles.widthCont}>
               <Box sx={dashboardStyles.paginationContainer}>
-                <Pagination
-                  count={page +1}
+                <CustomPaginationWithSlide
                   page={page}
+                  count={totalPages}
                   onChange={handlePageChange}
-                  color={"primary"}
-                  size={isExtraSmall ? "small" : "large"}
-                  siblingCount={isExtraSmall ? 0 : 1}
-                  boundaryCount={isExtraSmall ? 1 : 2}
-                  sx={dashboardStyles.pagination(isExtraSmall)}
+                  style={dashboardStyles.pagination(isExtraSmall)}
                 />
               </Box>
             </Box>

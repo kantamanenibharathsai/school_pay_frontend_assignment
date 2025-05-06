@@ -7,6 +7,7 @@ import {
   MenuItem,
   Box,
   FormHelperText,
+  useTheme,
 } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -24,6 +25,7 @@ const TransactionFilters = ({
   onSearchChange,
   fieldErrors = {},
 }) => {
+    const theme = useTheme();
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <Box sx={transactionFilterStyles.filterContainer}>
@@ -32,7 +34,7 @@ const TransactionFilters = ({
           value={searchTerm}
           onChange={onSearchChange}
           size="small"
-          sx={transactionFilterStyles.searchTextField}
+          sx={commonStyles.textfieldStyleTheme(theme)}
           error={!!fieldErrors.searchTerm}
           helperText={fieldErrors.searchTerm}
         />
@@ -55,7 +57,7 @@ const TransactionFilters = ({
               label="Status"
               onChange={onStatusChange}
               size="small"
-              sx={commonStyles.statusSelectStyle}
+              sx={commonStyles.statusSelectStyle(theme)}
             >
               <MenuItem value="All">All</MenuItem>
               <MenuItem value="Success">Success</MenuItem>

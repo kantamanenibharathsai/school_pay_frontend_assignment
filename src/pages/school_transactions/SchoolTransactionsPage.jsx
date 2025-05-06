@@ -3,11 +3,11 @@ import {
   Typography,
   Box,
   TextField,
-  Pagination,
   CircularProgress,
   Button,
   Alert,
   useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import SchoolTransactionsTable from "../../components/school_transactions/SchoolTransactionsTable";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -19,8 +19,10 @@ import { delay } from "../../utils/FunctionsUtils";
 import useDebounce from "../../hooks/useDebounce";
 import { getTransactionsBySchool } from "../../api/transactions";
 import dashboardStyles from "../dashboard/DashboardPageStyles";
+import CustomPaginationWithSlide from "../../components/dashboard/CustomPaginationWithSlide";
 
 const SchoolTransactionsPage = () => {
+  const theme = useTheme();
   const [allTransactions, setAllTransactions] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -28,9 +30,9 @@ const SchoolTransactionsPage = () => {
   const [dateRange, setDateRange] = useState([null, null]);
   const [dateError, setDateError] = useState(null);
   const debouncedSchoolId = useDebounce(schoolId, 500);
+  const isExtraSmall = useMediaQuery("(max-width:320px)");
   const [page, setPage] = useState(1);
   const rowsPerPage = 10;
-  const isExtraSmall = useMediaQuery("(max-width:320px)");
 
   const validateDates = (startDate, endDate) => {
     if (startDate && endDate && startDate > endDate) {
@@ -97,26 +99,21 @@ const SchoolTransactionsPage = () => {
     page * rowsPerPage
   );
 
-  const handleSchoolIdChange = (event) => {
-    setSchoolId(event.target.value);
-  };
+  const totalPages = Math.max(
+    1,
+    Math.ceil(allTransactions.length / rowsPerPage)
+  );
+
+  const handleSchoolIdChange = (event) => setSchoolId(event.target.value);
   const handleStartDateChange = (newValue) => {
     const newDateRange = [newValue, dateRange[1]];
-    if (validateDates(newValue, dateRange[1])) {
-      setDateRange(newDateRange);
-    }
+    if (validateDates(newValue, dateRange[1])) setDateRange(newDateRange);
   };
-
   const handleEndDateChange = (newValue) => {
     const newDateRange = [dateRange[0], newValue];
-    if (validateDates(dateRange[0], newValue)) {
-      setDateRange(newDateRange);
-    }
+    if (validateDates(dateRange[0], newValue)) setDateRange(newDateRange);
   };
-
-  const handlePageChange = (event, newPage) => {
-    setPage(newPage);
-  };
+  const handlePageChange = (event, newPage) => setPage(newPage);
   const handleReset = () => {
     setSchoolId("");
     setDateRange([null, null]);
@@ -139,21 +136,30 @@ const SchoolTransactionsPage = () => {
           onChange={handleSchoolIdChange}
           fullWidth
           size="small"
-          sx={commonStyles.textfieldStyle}
+          sx={commonStyles.textfieldStyleTheme(theme)}
         />
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <DatePicker
             label="Start Date"
             value={dateRange[0]}
             onChange={handleStartDateChange}
-            renderInput={(params) => <TextField {...params} size="small" />}
-            sx={{ ...commonStyles.DatePicker, flexGrow: 1 }}
+            slotProps={{
+              textField: {
+                size: "large",
+                sx: { ...commonStyles.DatePicker, flexGrow: 1 },
+              },
+            }}
           />
           <DatePicker
             label="End Date"
             value={dateRange[1]}
             onChange={handleEndDateChange}
-            renderInput={(params) => <TextField {...params} size="small" />}
+            slotProps={{
+              textField: {
+                size: "large",
+                sx: { ...commonStyles.DatePicker, flexGrow: 1 },
+              },
+            }}
             sx={{ ...commonStyles.DatePicker, flexGrow: 1 }}
           />
         </LocalizationProvider>
@@ -181,22 +187,23 @@ const SchoolTransactionsPage = () => {
             />
             <Box sx={dashboardStyles.widthCont}>
               <Box sx={dashboardStyles.paginationContainer}>
-                <Pagination
-                  count={Math.ceil(allTransactions.length / rowsPerPage)}
+                <CustomPaginationWithSlide
                   page={page}
+                  count={totalPages}
                   onChange={handlePageChange}
-                  color={"primary"}
-                  size={isExtraSmall ? "small" : "large"}
-                  siblingCount={isExtraSmall ? 0 : 1}
-                  boundaryCount={isExtraSmall ? 1 : 2}
-                  sx={dashboardStyles.pagination(isExtraSmall)}
+                  style={dashboardStyles.pagination(isExtraSmall)}
                 />
               </Box>
             </Box>
           </Box>
         ) : (
           <Box sx={schoolTransactionsStyles.noDataContainer}>
-            <Typography sx={schoolTransactionsStyles.noDataText}>
+            <Typography
+              sx={{
+                ...schoolTransactionsStyles.noDataText,
+                color: theme.palette.text.primary,
+              }}
+            >
               {debouncedSchoolId && !dateError
                 ? "No transactions found for this school."
                 : "Enter a school ID to view transactions."}

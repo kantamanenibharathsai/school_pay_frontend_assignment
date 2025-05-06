@@ -23,6 +23,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 const SchoolTransactionsTable = ({ transactions, loading, error }) => {
+  console.log("transactions", transactions);
   if (loading) {
     return (
       <Box sx={schoolTableStyles.loadingContainer}>
@@ -93,7 +94,7 @@ const SchoolTransactionsTable = ({ transactions, loading, error }) => {
         </TableHead>
         <TableBody>
           {transactions.map((row) => (
-            <StyledTableRow key={row.collect_id}>
+            <StyledTableRow key={row._id}>
               <TableCell
                 component="th"
                 scope="row"
